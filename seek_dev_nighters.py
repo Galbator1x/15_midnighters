@@ -6,13 +6,11 @@ import requests
 
 def load_attempts():
     url = 'https://devman.org/api/challenges/solution_attempts/'
-    payload = {'page': '1'}
-    req = requests.get(url, params=payload).json()
-    pages = req['number_of_pages']
-
-    for page in range(1, pages + 1):
+    page, pages = 1, 1
+    while page < pages + 1:
         payload = {'page': page}
         req = requests.get(url, params=payload).json()
+        pages = req['number_of_pages']
         for record in req['records']:
             if record['timestamp'] is None:
                 continue
@@ -21,6 +19,7 @@ def load_attempts():
                 'timestamp': record['timestamp'],
                 'timezone': record['timezone'],
             }
+        page += 1
 
 
 def get_midnighters():
