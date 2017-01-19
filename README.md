@@ -23,5 +23,3 @@ Requirements
 ------------
 
 - Python >= 3.5
-- pytz==2016.7
-- requests==2.11.1
